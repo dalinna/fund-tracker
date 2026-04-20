@@ -17,8 +17,9 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
             color: #333;
+            line-height: 1.3;
         }
 
         .container {
@@ -29,22 +30,22 @@
         .header {
             background: white;
             border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         .header h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 18px;
+            margin-bottom: 10px;
             color: #333;
         }
 
         .summary {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
         .summary-item {
@@ -52,14 +53,15 @@
         }
 
         .summary-label {
-            font-size: 14px;
+            font-size: 12px;
             color: #999;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .summary-value {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
+            line-height: 1.15;
         }
 
         .summary-value.positive {
@@ -72,12 +74,12 @@
 
         .refresh-btn {
             width: 100%;
-            padding: 12px;
+            padding: 9px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             transition: opacity 0.3s;
         }
@@ -86,32 +88,161 @@
             opacity: 0.8;
         }
 
+        .action-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 9px;
+            background: white;
+            color: #5b5bd6;
+            border: 1px solid #d9d9ff;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .add-btn:active {
+            opacity: 0.8;
+        }
+
+        .modal-mask {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 999;
+        }
+
+        .modal-mask.hidden {
+            display: none;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .modal-field {
+            margin-bottom: 8px;
+        }
+
+        .modal-field label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .modal-field input {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .modal-field input:focus {
+            border-color: #7b77ea;
+            box-shadow: 0 0 0 2px rgba(123, 119, 234, 0.15);
+        }
+
+        .modal-error {
+            min-height: 16px;
+            margin-bottom: 6px;
+            font-size: 12px;
+            color: #cf1322;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal-cancel-btn,
+        .modal-save-btn {
+            flex: 1;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .modal-cancel-btn {
+            background: #fff;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .modal-save-btn {
+            border: none;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
         .fund-card {
             background: white;
             border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         .fund-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            padding-bottom: 7px;
             border-bottom: 1px solid #f0f0f0;
         }
 
+        .fund-meta {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            min-width: 0;
+        }
+
         .fund-name {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
             color: #333;
+            line-height: 1.25;
         }
 
         .fund-code {
-            font-size: 14px;
+            font-size: 12px;
             color: #999;
+        }
+
+        .delete-btn {
+            background: #fff1f0;
+            color: #cf1322;
+            border: 1px solid #ffd6d2;
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
         .fund-info {
@@ -140,20 +271,21 @@
         .fund-profit {
             background: #f5f5f5;
             border-radius: 8px;
-            padding: 12px;
+            padding: 8px;
             text-align: center;
-            margin-top: 12px;
+            margin-top: 6px;
         }
 
         .profit-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .profit-value {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
+            line-height: 1.15;
         }
 
         .profit-value.positive {
@@ -164,20 +296,24 @@
             color: #52c41a;
         }
 
+        .profit-value.neutral {
+            color: #999;
+        }
+
         .update-time {
             text-align: center;
             color: rgba(255,255,255,0.8);
-            font-size: 12px;
-            margin-top: 16px;
+            font-size: 11px;
+            margin-top: 8px;
         }
 
         .error-badge {
             background: #fff1f0;
             color: #cf1322;
-            padding: 4px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
-            font-size: 12px;
-            margin-left: 8px;
+            font-size: 10px;
+            margin-left: 6px;
         }
     </style>
 </head>
@@ -187,93 +323,431 @@
             <h1>基金实时收益</h1>
             <div class="summary">
                 <div class="summary-item">
-                    <div class="summary-label">总市值</div>
-                    <div class="summary-value">¥37,850.82</div>
+                    <div class="summary-label">当日收益</div>
+                    <div class="summary-value positive" id="summary-day-profit">
+                        +¥144.47
+                    </div>
                 </div>
                 <div class="summary-item">
-                    <div class="summary-label">总收益</div>
-                    <div class="summary-value negative">
-                        ¥-5,754.98
+                    <div class="summary-label">当日收益率</div>
+                    <div class="summary-value positive" id="summary-day-profit-rate">
+                        +0.38%
                     </div>
                 </div>
             </div>
-            <div class="summary-item">
-                <div class="summary-label">收益率</div>
-                <div class="summary-value negative">
-                    -13.20%
-                </div>
-            </div>
-            <button class="refresh-btn" onclick="location.reload()">刷新数据</button>
-        </div>
-
-        <div class="fund-card">
-            <div class="fund-header">
-                <div>
-                    <div class="fund-name">华宝医疗ETF联接A</div>
-                    <div class="fund-code">162412</div>
-                </div>
-            </div>
-            <div class="fund-info">
-                <div class="info-item">
-                    <span class="info-label">持有份额</span>
-                    <span class="info-value">51409.00</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">成本价</span>
-                    <span class="info-value">¥0.69</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">当前净值</span>
-                    <span class="info-value">¥0.58</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">市值</span>
-                    <span class="info-value">¥29,858.35</span>
-                </div>
-            </div>
-            <div class="fund-profit">
-                <div class="profit-label">持有收益</div>
-                <div class="profit-value negative">
-                    ¥-5,747.53 (-16.14%)
-                </div>
+            <div class="action-row">
+                <button class="refresh-btn" id="refresh-btn" onclick="refreshData()">刷新数据</button>
+                <button class="add-btn" onclick="openAddFundModal()">新增基金</button>
             </div>
         </div>
-
-        <div class="fund-card">
-            <div class="fund-header">
-                <div>
-                    <div class="fund-name">易方达增强回报债券A</div>
-                    <div class="fund-code">110017</div>
-                </div>
-            </div>
-            <div class="fund-info">
-                <div class="info-item">
-                    <span class="info-label">持有份额</span>
-                    <span class="info-value">5730.19</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">成本价</span>
-                    <span class="info-value">¥1.40</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">当前净值</span>
-                    <span class="info-value">¥1.39</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">市值</span>
-                    <span class="info-value">¥7,992.47</span>
-                </div>
-            </div>
-            <div class="fund-profit">
-                <div class="profit-label">持有收益</div>
-                <div class="profit-value negative">
-                    ¥-7.45 (-0.09%)
-                </div>
-            </div>
-        </div>
-
-        <div class="update-time">更新时间：2026-04-20 11:21:15</div>
-        <div class="update-time" style="margin-top: 8px;">每天自动更新 | GitHub Actions驱动</div>
+        <div id="fund-list"></div>
+        <div class="update-time" id="update-time">更新时间：2026-04-20 11:21:15</div>
     </div>
+    <div class="modal-mask hidden" id="add-fund-modal-mask">
+        <div class="modal">
+            <div class="modal-title">新增基金</div>
+            <div class="modal-field">
+                <label for="add-fund-code">基金代码（必填）</label>
+                <input id="add-fund-code" maxlength="6" placeholder="例如 162412">
+            </div>
+            <div class="modal-field">
+                <label for="add-fund-shares">持有份额（必填）</label>
+                <input id="add-fund-shares" placeholder="例如 1000.50">
+            </div>
+            <div class="modal-field">
+                <label for="add-fund-name">基金名称（可选）</label>
+                <input id="add-fund-name" placeholder="留空会自动获取">
+            </div>
+            <div class="modal-error" id="add-fund-error"></div>
+            <div class="modal-actions">
+                <button class="modal-cancel-btn" onclick="closeAddFundModal()">取消</button>
+                <button class="modal-save-btn" onclick="submitAddFund()">保存</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const STORAGE_KEY = 'fund_tracker_portfolio_v1';
+        const initialPortfolio = [{"code": "162412", "shares": 51409.0, "name": "华宝医疗ETF联接A"}, {"code": "110017", "shares": 5730.19, "name": "易方达增强回报债券A"}];
+        const initialFundStates = {"162412": {"dayProfit": 139.67774643176745, "dayRate": 0.47, "previousValue": 29718.669453568233, "error": ""}, "110017": {"dayProfit": 4.792605843693309, "dayRate": 0.06, "previousValue": 7987.676406156306, "error": ""}};
+        let portfolio = [];
+        let fundStates = {};
+
+        function formatMoneySigned(value) {
+            const sign = value >= 0 ? '+' : '-';
+            return `${sign}¥${Math.abs(value).toLocaleString('zh-CN', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}`;
+        }
+
+        function formatPercent(value) {
+            const sign = value >= 0 ? '+' : '';
+            return `${sign}${value.toFixed(2)}%`;
+        }
+
+        function setProfitClass(element, value) {
+            element.classList.remove('positive', 'negative');
+            element.classList.add(value >= 0 ? 'positive' : 'negative');
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function formatNow() {
+            const now = new Date();
+            const pad = (n) => String(n).padStart(2, '0');
+            return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ` +
+                `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+        }
+
+        function normalizeFund(item) {
+            const code = String(item?.code ?? '').trim();
+            const shares = Number(item?.shares);
+            const name = String(item?.name ?? '').trim();
+            if (!code || !Number.isFinite(shares) || shares <= 0) {
+                return null;
+            }
+            return { code, shares, name };
+        }
+
+        function savePortfolio() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
+        }
+
+        function loadPortfolio() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed)) {
+                        const normalized = parsed.map(normalizeFund).filter(Boolean);
+                        if (normalized.length > 0) {
+                            portfolio = normalized;
+                            return;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('读取本地持仓失败', error);
+            }
+
+            portfolio = initialPortfolio.map(normalizeFund).filter(Boolean);
+            savePortfolio();
+        }
+
+        function getAddFundFormElements() {
+            return {
+                mask: document.getElementById('add-fund-modal-mask'),
+                codeInput: document.getElementById('add-fund-code'),
+                sharesInput: document.getElementById('add-fund-shares'),
+                nameInput: document.getElementById('add-fund-name'),
+                errorEl: document.getElementById('add-fund-error')
+            };
+        }
+
+        function clearAddFundError() {
+            const { errorEl } = getAddFundFormElements();
+            if (errorEl) {
+                errorEl.textContent = '';
+            }
+        }
+
+        function setAddFundError(message) {
+            const { errorEl } = getAddFundFormElements();
+            if (errorEl) {
+                errorEl.textContent = message;
+            }
+        }
+
+        function openAddFundModal() {
+            const { mask, codeInput, sharesInput, nameInput } = getAddFundFormElements();
+            if (!mask) {
+                return;
+            }
+            clearAddFundError();
+            if (codeInput) {
+                codeInput.value = '';
+            }
+            if (sharesInput) {
+                sharesInput.value = '';
+            }
+            if (nameInput) {
+                nameInput.value = '';
+            }
+            mask.classList.remove('hidden');
+            if (codeInput) {
+                codeInput.focus();
+            }
+        }
+
+        function closeAddFundModal() {
+            const { mask } = getAddFundFormElements();
+            if (!mask) {
+                return;
+            }
+            mask.classList.add('hidden');
+            clearAddFundError();
+        }
+
+        function renderFunds() {
+            const fundListEl = document.getElementById('fund-list');
+            if (!fundListEl) {
+                return;
+            }
+
+            if (portfolio.length === 0) {
+                fundListEl.innerHTML = `
+                    <div class="fund-card">
+                        <div class="fund-profit">
+                            <div class="profit-label">提示</div>
+                            <div class="profit-value neutral">暂无基金，点击“新增基金”添加</div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            fundListEl.innerHTML = portfolio.map((fund) => {
+                const state = fundStates[fund.code] || {};
+                const dayProfit = Number(state.dayProfit);
+                const dayRate = Number(state.dayRate);
+                const hasValue = Number.isFinite(dayProfit) && Number.isFinite(dayRate);
+                const profitClass = !hasValue ? 'neutral' : (dayProfit >= 0 ? 'positive' : 'negative');
+                const profitText = hasValue
+                    ? `${formatMoneySigned(dayProfit)} (${formatPercent(dayRate)})`
+                    : '点击刷新获取';
+                const name = fund.name || `基金${fund.code}`;
+                const errorBadge = state.error
+                    ? `<span class="error-badge">${escapeHtml(state.error)}</span>`
+                    : '';
+
+                return `
+                    <div class="fund-card" data-code="${escapeHtml(fund.code)}">
+                        <div class="fund-header">
+                            <div class="fund-meta">
+                                <div class="fund-name">${escapeHtml(name)}${errorBadge}</div>
+                                <div class="fund-code">${escapeHtml(fund.code)}</div>
+                            </div>
+                            <button class="delete-btn" onclick="removeFund('${escapeHtml(fund.code)}')">删除</button>
+                        </div>
+                        <div class="fund-profit">
+                            <div class="profit-label">当日收益</div>
+                            <div class="profit-value ${profitClass}">
+                                ${profitText}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function fetchFundData(code) {
+            return new Promise((resolve, reject) => {
+                const oldHandler = window.jsonpgz;
+                const script = document.createElement('script');
+                const timeout = setTimeout(() => {
+                    cleanup();
+                    reject(new Error(`基金 ${code} 请求超时`));
+                }, 12000);
+
+                function cleanup() {
+                    clearTimeout(timeout);
+                    window.jsonpgz = oldHandler;
+                    script.remove();
+                }
+
+                window.jsonpgz = (data) => {
+                    cleanup();
+                    resolve(data || {});
+                };
+
+                script.onerror = () => {
+                    cleanup();
+                    reject(new Error(`基金 ${code} 请求失败`));
+                };
+                script.src = `https://fundgz.1234567.com.cn/js/${code}.js?rt=${Date.now()}`;
+                document.body.appendChild(script);
+            });
+        }
+
+        function updateSummaryFromStates() {
+            const summaryDayProfitEl = document.getElementById('summary-day-profit');
+            const summaryDayProfitRateEl = document.getElementById('summary-day-profit-rate');
+            let totalDayProfit = 0;
+            let totalPreviousValue = 0;
+
+            for (const fund of portfolio) {
+                const state = fundStates[fund.code];
+                if (!state) {
+                    continue;
+                }
+                const dayProfit = Number(state.dayProfit);
+                const previousValue = Number(state.previousValue);
+                if (Number.isFinite(dayProfit)) {
+                    totalDayProfit += dayProfit;
+                }
+                if (Number.isFinite(previousValue) && previousValue > 0) {
+                    totalPreviousValue += previousValue;
+                }
+            }
+
+            const totalDayProfitRate = totalPreviousValue > 0
+                ? (totalDayProfit / totalPreviousValue) * 100
+                : 0;
+
+            summaryDayProfitEl.textContent = formatMoneySigned(totalDayProfit);
+            summaryDayProfitRateEl.textContent = formatPercent(totalDayProfitRate);
+            setProfitClass(summaryDayProfitEl, totalDayProfit);
+            setProfitClass(summaryDayProfitRateEl, totalDayProfit);
+        }
+
+        async function refreshData() {
+            const btn = document.getElementById('refresh-btn');
+            const updateTimeEl = document.getElementById('update-time');
+
+            if (!btn) {
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = '刷新中...';
+            let successCount = 0;
+            let portfolioChanged = false;
+
+            await Promise.all(portfolio.map(async (fund) => {
+                try {
+                    const data = await fetchFundData(fund.code);
+                    const currentNav = parseFloat(data.gsz || data.dwjz || '0');
+                    const dayRate = parseFloat(data.gszzl || '0');
+                    if (!Number.isFinite(currentNav)) {
+                        throw new Error(`基金 ${fund.code} 净值无效`);
+                    }
+
+                    const marketValue = fund.shares * currentNav;
+                    const ratio = dayRate / 100;
+                    const denominator = 1 + ratio;
+                    const previousValue = denominator !== 0 ? marketValue / denominator : marketValue;
+                    const dayProfit = marketValue - previousValue;
+
+                    fundStates[fund.code] = {
+                        dayProfit,
+                        dayRate: Number.isFinite(dayRate) ? dayRate : 0,
+                        previousValue: previousValue > 0 ? previousValue : 0,
+                        error: ''
+                    };
+
+                    if (!fund.name && data.name) {
+                        fund.name = String(data.name).trim();
+                        portfolioChanged = true;
+                    }
+                    successCount += 1;
+                } catch (error) {
+                    console.error(error);
+                    const oldState = fundStates[fund.code] || {};
+                    fundStates[fund.code] = {
+                        ...oldState,
+                        error: '刷新失败'
+                    };
+                }
+            }));
+
+            if (successCount > 0) {
+                if (portfolioChanged) {
+                    savePortfolio();
+                }
+                renderFunds();
+                updateSummaryFromStates();
+                updateTimeEl.textContent = `更新时间：${formatNow()}`;
+                btn.textContent = '刷新完成';
+            } else {
+                btn.textContent = '刷新失败';
+            }
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = '刷新数据';
+            }, 1200);
+        }
+
+        function submitAddFund() {
+            const { codeInput, sharesInput, nameInput } = getAddFundFormElements();
+            const code = String(codeInput?.value ?? '').trim();
+            if (!/^\d{6}$/.test(code)) {
+                setAddFundError('基金代码格式不正确，需要 6 位数字');
+                return;
+            }
+            if (portfolio.some((fund) => fund.code === code)) {
+                setAddFundError('该基金已存在');
+                return;
+            }
+
+            const shares = Number(String(sharesInput?.value ?? '').trim());
+            if (!Number.isFinite(shares) || shares <= 0) {
+                setAddFundError('持有份额必须是大于 0 的数字');
+                return;
+            }
+
+            portfolio.push({
+                code,
+                shares,
+                name: String(nameInput?.value ?? '').trim()
+            });
+            savePortfolio();
+            renderFunds();
+            closeAddFundModal();
+            refreshData();
+        }
+
+        function removeFund(code) {
+            const target = portfolio.find((fund) => fund.code === code);
+            if (!target) {
+                return;
+            }
+            if (!confirm(`确认删除 ${target.name || target.code} 吗？`)) {
+                return;
+            }
+
+            portfolio = portfolio.filter((fund) => fund.code !== code);
+            delete fundStates[code];
+            savePortfolio();
+            renderFunds();
+            updateSummaryFromStates();
+        }
+
+        window.openAddFundModal = openAddFundModal;
+        window.closeAddFundModal = closeAddFundModal;
+        window.submitAddFund = submitAddFund;
+        window.removeFund = removeFund;
+        document.addEventListener('keydown', (event) => {
+            const { mask } = getAddFundFormElements();
+            if (!mask || mask.classList.contains('hidden')) {
+                return;
+            }
+            if (event.key === 'Escape') {
+                closeAddFundModal();
+            }
+            if (event.key === 'Enter') {
+                submitAddFund();
+            }
+        });
+        const modalMask = document.getElementById('add-fund-modal-mask');
+        if (modalMask) {
+            modalMask.addEventListener('click', (event) => {
+                if (event.target === modalMask) {
+                    closeAddFundModal();
+                }
+            });
+        }
+        loadPortfolio();
+        fundStates = { ...initialFundStates };
+        renderFunds();
+        updateSummaryFromStates();
+    </script>
 </body>
 </html>

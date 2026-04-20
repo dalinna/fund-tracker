@@ -58,6 +58,13 @@ def load_holdings(json_path='fund-holdings.json'):
         print(f"读取持仓文件失败: {str(e)}")
         return []
 
+def parse_day_growth(day_growth):
+    """把日涨跌幅字符串转换成浮点数百分比"""
+    try:
+        return float(day_growth)
+    except (TypeError, ValueError):
+        return 0.0
+
 def save_fund_data(holdings, fund_data_list, output_path='fund-data.json'):
     """
     保存基金数据到JSON文件
@@ -72,16 +79,25 @@ def save_fund_data(holdings, fund_data_list, output_path='fund-data.json'):
         fund_data = next((f for f in fund_data_list if f.get('code') == fund_code), None)
 
         if fund_data and fund_data.get('success'):
+            day_profit_rate = parse_day_growth(fund_data.get('day_growth', '0'))
+            current_nav = fund_data['current_nav']
+            day_ratio = day_profit_rate / 100
+            denominator = 1 + day_ratio
+            previous_nav = (current_nav / denominator) if denominator != 0 else current_nav
+            day_profit = holding['shares'] * (current_nav - previous_nav)
+
             fund_info = {
                 'code': fund_code,
                 'name': fund_data.get('name', holding['name']),
                 'shares': holding['shares'],
                 'cost_price': holding['costPrice'],
-                'current_nav': fund_data['current_nav'],
-                'market_value': holding['shares'] * fund_data['current_nav'],
+                'current_nav': current_nav,
+                'market_value': holding['shares'] * current_nav,
                 'cost': holding['shares'] * holding['costPrice'],
-                'profit': holding['shares'] * (fund_data['current_nav'] - holding['costPrice']),
-                'profit_rate': ((fund_data['current_nav'] - holding['costPrice']) / holding['costPrice']) * 100,
+                'profit': holding['shares'] * (current_nav - holding['costPrice']),
+                'profit_rate': ((current_nav - holding['costPrice']) / holding['costPrice']) * 100,
+                'day_profit': day_profit,
+                'day_profit_rate': day_profit_rate,
                 'day_growth': fund_data.get('day_growth', '0'),
                 'nav_date': fund_data.get('nav_date', '')
             }
@@ -97,6 +113,8 @@ def save_fund_data(holdings, fund_data_list, output_path='fund-data.json'):
                 'cost': holding['shares'] * holding['costPrice'],
                 'profit': 0,
                 'profit_rate': 0,
+                'day_profit': 0,
+                'day_profit_rate': 0,
                 'day_growth': '0',
                 'error': fund_data.get('error', '数据获取失败') if fund_data else '未知错误'
             }
@@ -108,12 +126,21 @@ def save_fund_data(holdings, fund_data_list, output_path='fund-data.json'):
     total_cost = sum(f['cost'] for f in result['funds'])
     total_profit = total_market_value - total_cost
     total_profit_rate = (total_profit / total_cost * 100) if total_cost > 0 else 0
+    total_day_profit = sum(f.get('day_profit', 0) for f in result['funds'])
+    total_previous_market_value = total_market_value - total_day_profit
+    total_day_profit_rate = (
+        total_day_profit / total_previous_market_value * 100
+        if total_previous_market_value > 0
+        else 0
+    )
 
     result['summary'] = {
         'total_market_value': total_market_value,
         'total_cost': total_cost,
         'total_profit': total_profit,
-        'total_profit_rate': total_profit_rate
+        'total_profit_rate': total_profit_rate,
+        'total_day_profit': total_day_profit,
+        'total_day_profit_rate': total_day_profit_rate
     }
 
     with open(output_path, 'w', encoding='utf-8') as f:
@@ -122,6 +149,7 @@ def save_fund_data(holdings, fund_data_list, output_path='fund-data.json'):
     print(f"数据已保存到 {output_path}")
     print(f"总市值: ¥{total_market_value:.2f}")
     print(f"总收益: ¥{total_profit:.2f} ({total_profit_rate:+.2f}%)")
+    print(f"当日收益: ¥{total_day_profit:.2f} ({total_day_profit_rate:+.2f}%)")
 
 def main():
     print("开始获取基金数据...")
