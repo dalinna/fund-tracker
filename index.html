@@ -620,9 +620,13 @@
             let successCount = 0;
             let portfolioChanged = false;
 
-            await Promise.all(portfolio.map(async (fund) => {
+            for (const fund of portfolio) {
                 try {
                     const data = await fetchFundData(fund.code);
+                    const responseCode = String(data.fundcode || '').trim();
+                    if (responseCode && responseCode !== fund.code) {
+                        throw new Error(`基金 ${fund.code} 返回代码不匹配: ${responseCode}`);
+                    }
                     const currentNav = parseFloat(data.gsz || data.dwjz || '0');
                     const dayRate = parseFloat(data.gszzl || '0');
                     if (!Number.isFinite(currentNav)) {
@@ -655,7 +659,7 @@
                         error: '刷新失败'
                     };
                 }
-            }));
+            }
 
             if (successCount > 0) {
                 if (portfolioChanged) {
@@ -748,6 +752,7 @@
         fundStates = { ...initialFundStates };
         renderFunds();
         updateSummaryFromStates();
+        refreshData();
     </script>
 </body>
 </html>
