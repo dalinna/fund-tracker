@@ -1,0 +1,19 @@
+{
+  "holdings": [
+    {
+      "code": "162412",
+      "name": "华宝医疗ETF联接A",
+      "shares": 51409.00,
+      "costPrice": 0.6926,
+      "notes": ""
+    },
+    {
+      "code": "110017",
+      "name": "易方达增强回报债券A",
+      "shares": 5730.19,
+      "costPrice": 1.3961,
+      "notes": ""
+    }
+  ],
+  "lastUpdate": "2026-04-20"
+}
