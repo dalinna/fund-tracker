@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-生成基金收益展示HTML
+生成基金收益展示HTML - 新版UI
 """
 
 import json
@@ -111,11 +111,12 @@ def generate_html(data, output_path='index.html'):
         }
     initial_fund_states_json = json.dumps(initial_fund_states, ensure_ascii=False)
 
-    html = f"""<!DOCTYPE html>
+    # 读取当前的 index.html 作为模板基础
+    template_start = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>基金实时收益</title>
@@ -130,9 +131,9 @@ def generate_html(data, output_path='index.html'):
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 10px;
+            padding: 6px;
             color: #333;
-            line-height: 1.3;
+            line-height: 1.2;
         }}
 
         .container {{
@@ -142,23 +143,29 @@ def generate_html(data, output_path='index.html'):
 
         .header {{
             background: white;
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }}
+
+        .header-top {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }}
 
         .header h1 {{
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin: 0;
             color: #333;
         }}
 
         .summary {{
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 4px;
         }}
 
         .summary-item {{
@@ -166,15 +173,15 @@ def generate_html(data, output_path='index.html'):
         }}
 
         .summary-label {{
-            font-size: 12px;
+            font-size: 10px;
             color: #999;
-            margin-bottom: 4px;
+            margin-bottom: 1px;
         }}
 
         .summary-value {{
-            font-size: 22px;
+            font-size: 17px;
             font-weight: bold;
-            line-height: 1.15;
+            line-height: 1.1;
         }}
 
         .summary-value.positive {{
@@ -185,40 +192,34 @@ def generate_html(data, output_path='index.html'):
             color: #52c41a;
         }}
 
+        .action-row {{
+            display: flex;
+            gap: 4px;
+        }}
+
+        .refresh-btn,
+        .add-btn {{
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }}
+
         .refresh-btn {{
-            width: 100%;
-            padding: 9px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }}
-
-        .refresh-btn:active {{
-            opacity: 0.8;
-        }}
-
-        .action-row {{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
         }}
 
         .add-btn {{
-            width: 100%;
-            padding: 9px;
             background: white;
             color: #5b5bd6;
             border: 1px solid #d9d9ff;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: opacity 0.3s;
         }}
 
+        .refresh-btn:active,
         .add-btn:active {{
             opacity: 0.8;
         }}
@@ -313,49 +314,66 @@ def generate_html(data, output_path='index.html'):
 
         .fund-card {{
             background: white;
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
         }}
 
-        .fund-header {{
+        .fund-content {{
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            padding-bottom: 7px;
-            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+            gap: 8px;
+            padding-right: 26px;
         }}
 
-        .fund-meta {{
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
+        .fund-left {{
+            flex: 1;
             min-width: 0;
         }}
 
         .fund-name {{
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #333;
-            line-height: 1.25;
+            line-height: 1.3;
+            margin-bottom: 2px;
         }}
 
         .fund-code {{
-            font-size: 12px;
+            font-size: 10px;
             color: #999;
         }}
 
+        .fund-right {{
+            text-align: right;
+            flex-shrink: 0;
+        }}
+
         .delete-btn {{
+            position: absolute;
+            top: 4px;
+            right: 4px;
             background: #fff1f0;
             color: #cf1322;
-            border: 1px solid #ffd6d2;
-            border-radius: 6px;
-            padding: 2px 8px;
-            font-size: 11px;
+            border: none;
+            padding: 2px;
+            font-size: 16px;
             cursor: pointer;
-            white-space: nowrap;
+            line-height: 1;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: opacity 0.2s;
+        }}
+
+        .delete-btn:active {{
+            opacity: 0.7;
         }}
 
         .fund-info {{
@@ -382,79 +400,91 @@ def generate_html(data, output_path='index.html'):
         }}
 
         .fund-profit {{
-            background: #f5f5f5;
-            border-radius: 8px;
-            padding: 8px;
-            text-align: center;
-            margin-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }}
 
-        .profit-label {{
-            font-size: 11px;
-            color: #999;
-            margin-bottom: 2px;
-        }}
-
-        .profit-value {{
-            font-size: 24px;
+        .profit-amount {{
+            font-size: 16px;
             font-weight: bold;
-            line-height: 1.15;
+            line-height: 1.2;
         }}
 
-        .profit-value.positive {{
+        .profit-rate {{
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.2;
+        }}
+
+        .profit-amount.positive,
+        .profit-rate.positive {{
             color: #f5222d;
         }}
 
-        .profit-value.negative {{
+        .profit-amount.negative,
+        .profit-rate.negative {{
             color: #52c41a;
         }}
 
-        .profit-value.neutral {{
+        .profit-amount.neutral,
+        .profit-rate.neutral {{
             color: #999;
+            font-size: 12px;
         }}
 
         .update-time {{
             text-align: center;
             color: rgba(255,255,255,0.8);
-            font-size: 11px;
-            margin-top: 8px;
+            font-size: 9px;
+            margin-top: 4px;
+        }}
+
+        .version-time {{
+            text-align: center;
+            color: rgba(255,255,255,0.75);
+            font-size: 9px;
+            margin-top: 1px;
         }}
 
         .error-badge {{
             background: #fff1f0;
             color: #cf1322;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-            margin-left: 6px;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 9px;
+            margin-left: 4px;
         }}
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>基金实时收益</h1>
+            <div class="header-top">
+                <h1>基金实时收益</h1>
+                <div class="action-row">
+                    <button class="refresh-btn" id="refresh-btn" onclick="refreshData()">刷新</button>
+                    <button class="add-btn" onclick="openAddFundModal()">新增</button>
+                </div>
+            </div>
             <div class="summary">
                 <div class="summary-item">
                     <div class="summary-label">当日收益</div>
                     <div class="summary-value {day_profit_class}" id="summary-day-profit">
-                        {format_money_signed(total_day_profit)}
+                        {formatted_day_profit}
                     </div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">当日收益率</div>
                     <div class="summary-value {day_profit_class}" id="summary-day-profit-rate">
-                        {format_percent(total_day_profit_rate)}
+                        {formatted_day_profit_rate}
                     </div>
                 </div>
-            </div>
-            <div class="action-row">
-                <button class="refresh-btn" id="refresh-btn" onclick="refreshData()">刷新数据</button>
-                <button class="add-btn" onclick="openAddFundModal()">新增基金</button>
             </div>
         </div>
         <div id="fund-list"></div>
         <div class="update-time" id="update-time">更新时间：{update_time}</div>
+        <div class="version-time" id="version-time">版本号：--</div>
     </div>
     <div class="modal-mask hidden" id="add-fund-modal-mask">
         <div class="modal">
@@ -513,10 +543,29 @@ def generate_html(data, output_path='index.html'):
         }}
 
         function formatNow() {{
-            const now = new Date();
+            return formatDateTime(new Date());
+        }}
+
+        function formatDateTime(date) {{
             const pad = (n) => String(n).padStart(2, '0');
-            return `${{now.getFullYear()}}-${{pad(now.getMonth() + 1)}}-${{pad(now.getDate())}} ` +
-                `${{pad(now.getHours())}}:${{pad(now.getMinutes())}}:${{pad(now.getSeconds())}}`;
+            return `${{date.getFullYear()}}-${{pad(date.getMonth() + 1)}}-${{pad(date.getDate())}} ` +
+                `${{pad(date.getHours())}}:${{pad(date.getMinutes())}}:${{pad(date.getSeconds())}}`;
+        }}
+
+        function getVersionTimeText() {{
+            const lastModified = new Date(document.lastModified);
+            if (!Number.isFinite(lastModified.getTime())) {{
+                return '未知';
+            }}
+            return formatDateTime(lastModified);
+        }}
+
+        function renderVersionTime() {{
+            const versionTimeEl = document.getElementById('version-time');
+            if (!versionTimeEl) {{
+                return;
+            }}
+            versionTimeEl.textContent = `版本号（最后提交）：${{getVersionTimeText()}}`;
         }}
 
         function normalizeFund(item) {{
@@ -617,9 +666,8 @@ def generate_html(data, output_path='index.html'):
             if (portfolio.length === 0) {{
                 fundListEl.innerHTML = `
                     <div class="fund-card">
-                        <div class="fund-profit">
-                            <div class="profit-label">提示</div>
-                            <div class="profit-value neutral">暂无基金，点击“新增基金”添加</div>
+                        <div class="fund-content" style="justify-content: center;">
+                            <div class="profit-amount neutral">暂无基金，点击"新增"添加</div>
                         </div>
                     </div>
                 `;
@@ -632,27 +680,28 @@ def generate_html(data, output_path='index.html'):
                 const dayRate = Number(state.dayRate);
                 const hasValue = Number.isFinite(dayProfit) && Number.isFinite(dayRate);
                 const profitClass = !hasValue ? 'neutral' : (dayProfit >= 0 ? 'positive' : 'negative');
-                const profitText = hasValue
-                    ? `${{formatMoneySigned(dayProfit)}} (${{formatPercent(dayRate)}})`
-                    : '点击刷新获取';
                 const name = fund.name || `基金${{fund.code}}`;
                 const errorBadge = state.error
                     ? `<span class="error-badge">${{escapeHtml(state.error)}}</span>`
                     : '';
 
+                const profitContent = hasValue
+                    ? `<div class="profit-amount ${{profitClass}}">${{formatMoneySigned(dayProfit)}}</div>
+                       <div class="profit-rate ${{profitClass}}">${{formatPercent(dayRate)}}</div>`
+                    : `<div class="profit-amount neutral">点击刷新</div>`;
+
                 return `
                     <div class="fund-card" data-code="${{escapeHtml(fund.code)}}">
-                        <div class="fund-header">
-                            <div class="fund-meta">
+                        <button class="delete-btn" onclick="removeFund('${{escapeHtml(fund.code)}}')">×</button>
+                        <div class="fund-content">
+                            <div class="fund-left">
                                 <div class="fund-name">${{escapeHtml(name)}}${{errorBadge}}</div>
                                 <div class="fund-code">${{escapeHtml(fund.code)}}</div>
                             </div>
-                            <button class="delete-btn" onclick="removeFund('${{escapeHtml(fund.code)}}')">删除</button>
-                        </div>
-                        <div class="fund-profit">
-                            <div class="profit-label">当日收益</div>
-                            <div class="profit-value ${{profitClass}}">
-                                ${{profitText}}
+                            <div class="fund-right">
+                                <div class="fund-profit">
+                                    ${{profitContent}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -729,13 +778,17 @@ def generate_html(data, output_path='index.html'):
             }}
 
             btn.disabled = true;
-            btn.textContent = '刷新中...';
+            btn.textContent = '...';
             let successCount = 0;
             let portfolioChanged = false;
 
-            await Promise.all(portfolio.map(async (fund) => {{
+            for (const fund of portfolio) {{
                 try {{
                     const data = await fetchFundData(fund.code);
+                    const responseCode = String(data.fundcode || '').trim();
+                    if (responseCode && responseCode !== fund.code) {{
+                        throw new Error(`基金 ${{fund.code}} 返回代码不匹配: ${{responseCode}}`);
+                    }}
                     const currentNav = parseFloat(data.gsz || data.dwjz || '0');
                     const dayRate = parseFloat(data.gszzl || '0');
                     if (!Number.isFinite(currentNav)) {{
@@ -768,7 +821,7 @@ def generate_html(data, output_path='index.html'):
                         error: '刷新失败'
                     }};
                 }}
-            }}));
+            }}
 
             if (successCount > 0) {{
                 if (portfolioChanged) {{
@@ -777,14 +830,14 @@ def generate_html(data, output_path='index.html'):
                 renderFunds();
                 updateSummaryFromStates();
                 updateTimeEl.textContent = `更新时间：${{formatNow()}}`;
-                btn.textContent = '刷新完成';
+                btn.textContent = '✓';
             }} else {{
-                btn.textContent = '刷新失败';
+                btn.textContent = '✗';
             }}
 
             setTimeout(() => {{
                 btn.disabled = false;
-                btn.textContent = '刷新数据';
+                btn.textContent = '刷新';
             }}, 1200);
         }}
 
@@ -860,11 +913,26 @@ def generate_html(data, output_path='index.html'):
         loadPortfolio();
         fundStates = {{ ...initialFundStates }};
         renderFunds();
+        renderVersionTime();
         updateSummaryFromStates();
+        refreshData();
     </script>
 </body>
 </html>
-"""
+'''
+
+    # 格式化数据
+    formatted_day_profit = format_money_signed(total_day_profit)
+    formatted_day_profit_rate = format_percent(total_day_profit_rate)
+
+    html = template_start.format(
+        day_profit_class=day_profit_class,
+        formatted_day_profit=formatted_day_profit,
+        formatted_day_profit_rate=formatted_day_profit_rate,
+        update_time=update_time,
+        portfolio_json=portfolio_json,
+        initial_fund_states_json=initial_fund_states_json
+    )
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
