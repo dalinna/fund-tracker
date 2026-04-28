@@ -357,19 +357,19 @@
                 <div class="summary-item">
                     <div class="summary-label">当日收益</div>
                     <div class="summary-value positive" id="summary-day-profit">
-                        +¥0.00
+                        +¥520.31
                     </div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">当日收益率</div>
                     <div class="summary-value positive" id="summary-day-profit-rate">
-                        +0.00%
+                        +1.37%
                     </div>
                 </div>
             </div>
         </div>
         <div id="fund-list"></div>
-        <div class="update-time" id="update-time">更新时间：2026-04-28 06:31:38</div>
+        <div class="update-time" id="update-time">更新时间：2026-04-28 09:39:08</div>
         <div class="version-time" id="version-time">版本号：--</div>
     </div>
     <div class="modal-mask hidden" id="add-fund-modal-mask">
@@ -397,7 +397,7 @@
     <script>
         const STORAGE_KEY = 'fund_tracker_portfolio_v1';
         const initialPortfolio = [{"code": "162412", "shares": 51409.0, "name": "华宝医疗ETF联接A"}, {"code": "110017", "shares": 5730.19, "name": "易方达增强回报债券A"}];
-        const initialFundStates = {"162412": {"dayProfit": 0.0, "dayRate": 0.0, "previousValue": 35605.8734, "error": "HTTPConnectionPool(host='fundgz.1234567.com.cn', port=80): Max retries exceeded with url: /js/162412.js (Caused by NewConnectionError(\"HTTPConnection(host='fundgz.1234567.com.cn', port=80): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"}, "110017": {"dayProfit": 0.0, "dayRate": 0.0, "previousValue": 7999.918258999999, "error": "HTTPConnectionPool(host='fundgz.1234567.com.cn', port=80): Max retries exceeded with url: /js/110017.js (Caused by NewConnectionError(\"HTTPConnection(host='fundgz.1234567.com.cn', port=80): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"}};
+        const initialFundStates = {"162412": {"dayProfit": 517.1195581932601, "dayRate": 1.73, "previousValue": 29891.303941806742, "error": ""}, "110017": {"dayProfit": 3.1929599296279676, "dayRate": 0.04, "previousValue": 7982.399824070371, "error": ""}};
         let portfolio = [];
         let fundStates = {};
 
