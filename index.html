@@ -357,19 +357,19 @@
                 <div class="summary-item">
                     <div class="summary-label">当日收益</div>
                     <div class="summary-value positive" id="summary-day-profit">
-                        +¥486.58
+                        +¥496.37
                     </div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">当日收益率</div>
                     <div class="summary-value positive" id="summary-day-profit-rate">
-                        +1.28%
+                        +1.31%
                     </div>
                 </div>
             </div>
         </div>
         <div id="fund-list"></div>
-        <div class="update-time" id="update-time">更新时间：2026-04-28 04:50:53</div>
+        <div class="update-time" id="update-time">更新时间：2026-04-28 06:25:12</div>
         <div class="version-time" id="version-time">版本号：--</div>
     </div>
     <div class="modal-mask hidden" id="add-fund-modal-mask">
@@ -397,7 +397,7 @@
     <script>
         const STORAGE_KEY = 'fund_tracker_portfolio_v1';
         const initialPortfolio = [{"code": "162412", "shares": 51409.0, "name": "华宝医疗ETF联接A"}, {"code": "110017", "shares": 5730.19, "name": "易方达增强回报债券A"}];
-        const initialFundStates = {"162412": {"dayProfit": 484.1896109427301, "dayRate": 1.62, "previousValue": 29888.24758905727, "error": ""}, "110017": {"dayProfit": 2.394615639107944, "dayRate": 0.03, "previousValue": 7982.052130360892, "error": ""}};
+        const initialFundStates = {"162412": {"dayProfit": 493.1774358091472, "dayRate": 1.65, "previousValue": 29889.54156419085, "error": ""}, "110017": {"dayProfit": 3.1929599296279676, "dayRate": 0.04, "previousValue": 7982.399824070371, "error": ""}};
         let portfolio = [];
         let fundStates = {};
 
@@ -713,7 +713,7 @@
                 if (portfolioChanged) {
                     savePortfolio();
                 }
-                sortByProfitRate();
+                renderFunds();
                 updateSummaryFromStates();
                 updateTimeEl.textContent = `更新时间：${formatNow()}`;
                 btn.textContent = '✓';
@@ -770,18 +770,6 @@
             savePortfolio();
             renderFunds();
             updateSummaryFromStates();
-        }
-
-        function sortByProfitRate() {
-            portfolio.sort((a, b) => {
-                const stateA = fundStates[a.code] || {};
-                const stateB = fundStates[b.code] || {};
-                const rateA = Number(stateA.dayRate) || 0;
-                const rateB = Number(stateB.dayRate) || 0;
-                return rateB - rateA;
-            });
-            savePortfolio();
-            renderFunds();
         }
 
         window.openAddFundModal = openAddFundModal;
