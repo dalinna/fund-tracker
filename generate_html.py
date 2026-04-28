@@ -827,7 +827,7 @@ def generate_html(data, output_path='index.html'):
                 if (portfolioChanged) {{
                     savePortfolio();
                 }}
-                renderFunds();
+                sortByProfitRate();
                 updateSummaryFromStates();
                 updateTimeEl.textContent = `更新时间：${{formatNow()}}`;
                 btn.textContent = '✓';
@@ -884,6 +884,18 @@ def generate_html(data, output_path='index.html'):
             savePortfolio();
             renderFunds();
             updateSummaryFromStates();
+        }}
+
+        function sortByProfitRate() {{
+            portfolio.sort((a, b) => {{
+                const stateA = fundStates[a.code] || {{}};
+                const stateB = fundStates[b.code] || {{}};
+                const rateA = Number(stateA.dayRate) || 0;
+                const rateB = Number(stateB.dayRate) || 0;
+                return rateB - rateA;
+            }});
+            savePortfolio();
+            renderFunds();
         }}
 
         window.openAddFundModal = openAddFundModal;
