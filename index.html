@@ -357,19 +357,19 @@
                 <div class="summary-item">
                     <div class="summary-label">当日收益</div>
                     <div class="summary-value positive" id="summary-day-profit">
-                        +¥149.34
+                        +¥0.00
                     </div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">当日收益率</div>
                     <div class="summary-value positive" id="summary-day-profit-rate">
-                        +0.33%
+                        +0.00%
                     </div>
                 </div>
             </div>
         </div>
         <div id="fund-list"></div>
-        <div class="update-time" id="update-time">更新时间：2026-04-20 11:21:15</div>
+        <div class="update-time" id="update-time">更新时间：2026-04-28 06:31:38</div>
         <div class="version-time" id="version-time">版本号：--</div>
     </div>
     <div class="modal-mask hidden" id="add-fund-modal-mask">
@@ -396,8 +396,8 @@
     </div>
     <script>
         const STORAGE_KEY = 'fund_tracker_portfolio_v1';
-        const initialPortfolio = [{"code": "162412", "shares": 51409.0, "name": "华宝医疗ETF联接A"}, {"code": "110017", "shares": 5730.19, "name": "易方达增强回报债券A"}, {"code": "001235", "shares": 75582.0, "name": ""}, {"code": "110017", "shares": 5730.19, "name": ""}];
-        const initialFundStates = {"162412": {"dayProfit": 139.67774643176745, "dayRate": 0.47, "previousValue": 29718.669453568233, "error": ""}, "110017": {"dayProfit": 4.792605843693309, "dayRate": 0.06, "previousValue": 7987.676406156306, "error": ""}, "001235": {"dayProfit": 0.08074665601916564, "dayRate": 0.18, "previousValue": 44.85925334398083, "error": ""}};
+        const initialPortfolio = [{"code": "162412", "shares": 51409.0, "name": "华宝医疗ETF联接A"}, {"code": "110017", "shares": 5730.19, "name": "易方达增强回报债券A"}];
+        const initialFundStates = {"162412": {"dayProfit": 0.0, "dayRate": 0.0, "previousValue": 35605.8734, "error": "HTTPConnectionPool(host='fundgz.1234567.com.cn', port=80): Max retries exceeded with url: /js/162412.js (Caused by NewConnectionError(\"HTTPConnection(host='fundgz.1234567.com.cn', port=80): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"}, "110017": {"dayProfit": 0.0, "dayRate": 0.0, "previousValue": 7999.918258999999, "error": "HTTPConnectionPool(host='fundgz.1234567.com.cn', port=80): Max retries exceeded with url: /js/110017.js (Caused by NewConnectionError(\"HTTPConnection(host='fundgz.1234567.com.cn', port=80): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"}};
         let portfolio = [];
         let fundStates = {};
 
