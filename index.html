@@ -356,20 +356,20 @@
             <div class="summary">
                 <div class="summary-item">
                     <div class="summary-label">当日收益</div>
-                    <div class="summary-value negative" id="summary-day-profit">
-                        -¥60.44
+                    <div class="summary-value positive" id="summary-day-profit">
+                        +¥358.36
                     </div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">当日收益率</div>
-                    <div class="summary-value negative" id="summary-day-profit-rate">
-                        -0.17%
+                    <div class="summary-value positive" id="summary-day-profit-rate">
+                        +1.03%
                     </div>
                 </div>
             </div>
         </div>
         <div id="fund-list"></div>
-        <div class="update-time" id="update-time">更新时间：2026-06-23 16:07:45</div>
+        <div class="update-time" id="update-time">更新时间：2026-06-24 05:14:22</div>
         <div class="version-time" id="version-time">版本号：--</div>
     </div>
     <div class="modal-mask hidden" id="add-fund-modal-mask">
@@ -397,7 +397,7 @@
     <script>
         const STORAGE_KEY = 'fund_tracker_portfolio_v1';
         const initialPortfolio = [{"code": "162412", "shares": 51409.0, "name": "华宝医疗ETF联接A"}, {"code": "110017", "shares": 5730.19, "name": "易方达增强回报债券A"}];
-        const initialFundStates = {"162412": {"dayProfit": -48.47443295932656, "dayRate": -0.18, "previousValue": 26930.240532959328, "error": ""}, "110017": {"dayProfit": -11.964533421631884, "dayRate": -0.15, "previousValue": 7976.355614421631, "error": ""}};
+        const initialFundStates = {"162412": {"dayProfit": 365.5151497237597, "dayRate": 1.36, "previousValue": 26876.11395027624, "error": ""}, "110017": {"dayProfit": -7.157891127714676, "dayRate": -0.09, "previousValue": 7953.212364127715, "error": ""}};
         let portfolio = [];
         let fundStates = {};
 
